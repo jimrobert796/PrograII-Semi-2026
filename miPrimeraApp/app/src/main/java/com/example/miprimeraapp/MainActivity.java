@@ -1,6 +1,8 @@
 package com.example.miprimeraapp;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +10,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+// Recuerda esto es programando con objetos
 public class MainActivity extends AppCompatActivity {
+
+    //Declaracion de variables
+    TextView tempVal; // tempval es un TextViews (campo de texto)
+    Button btn; // btn es un Button
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,10 +24,26 @@ public class MainActivity extends AppCompatActivity {
         //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        //ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-        //    Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-        //    v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-        //    return insets;
-        //});
+        // Enlazar las variables con los elementos XML
+        btn = findViewById(R.id.btnCalcular);
+
+        // Añadir eventos a las variables, al presionar el boton hace la funcion
+        btn.setOnClickListener(v -> calcular());
+    }
+
+    private void calcular(){
+        // Usamos tempval para obtener el valor no para almacenar
+        tempVal = findViewById(R.id.txtNum1);
+        // almacenamos  conertumos a double (obtenemos el texto del objeto y se convierte a string)
+        double num1 =  Double.parseDouble(tempVal.getText().toString());
+
+        tempVal = findViewById(R.id.txtNum2);
+        double num2 = Double.parseDouble(tempVal.getText().toString());
+
+        double respuesta = num1 + num2;
+
+        tempVal = findViewById(R.id.lblRespuesta);
+        tempVal.setText("Respuesta: "+ respuesta);
+
     }
 }
