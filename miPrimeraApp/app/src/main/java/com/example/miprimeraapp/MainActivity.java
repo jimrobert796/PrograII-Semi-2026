@@ -2,6 +2,7 @@ package com.example.miprimeraapp;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -16,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
     //Declaracion de variables
     TextView tempVal; // tempval es un TextViews (campo de texto)
     Button btn; // btn es un Button
+
+    RadioButton opt;
+
 
 
     @Override
@@ -40,7 +44,26 @@ public class MainActivity extends AppCompatActivity {
         tempVal = findViewById(R.id.txtNum2);
         double num2 = Double.parseDouble(tempVal.getText().toString());
 
-        double respuesta = num1 + num2;
+        double respuesta = 0;
+
+        opt = findViewById(R.id.optSuma);
+        if (opt.isChecked()){
+            respuesta = num1 + num2;
+        }
+        opt = findViewById(R.id.opResta);
+        if (opt.isChecked()){
+            respuesta = num1 - num2;
+        }
+        opt = findViewById(R.id.opMultiplicar);
+        if (opt.isChecked()){
+            respuesta = num1 * num2;
+        }
+        opt = findViewById(R.id.optDividir);
+        if (opt.isChecked()){
+            respuesta = num1 / num2;
+        }
+
+
 
         tempVal = findViewById(R.id.lblRespuesta);
         tempVal.setText("Respuesta: "+ respuesta);
