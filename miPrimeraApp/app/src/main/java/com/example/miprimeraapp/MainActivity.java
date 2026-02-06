@@ -11,6 +11,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+
+/*
+Tarea para viernes 06/02/2026 individual.
+Factorial
+Porcentaje
+Exponenciacion
+Raiz
+* */
+
 // Recuerda esto es programando con objetos
 public class MainActivity extends AppCompatActivity {
 
@@ -46,22 +55,66 @@ public class MainActivity extends AppCompatActivity {
 
         double respuesta = 0;
 
+        // SUMA
         opt = findViewById(R.id.optSuma);
         if (opt.isChecked()){
             respuesta = num1 + num2;
         }
+
+        // RESTA
         opt = findViewById(R.id.opResta);
         if (opt.isChecked()){
             respuesta = num1 - num2;
         }
+
+        // MULTI
         opt = findViewById(R.id.opMultiplicar);
         if (opt.isChecked()){
             respuesta = num1 * num2;
         }
+
+        // DIVISION
         opt = findViewById(R.id.optDividir);
         if (opt.isChecked()){
             respuesta = num1 / num2;
         }
+
+        // FACTORIAL
+        opt = findViewById(R.id.optFactorial);
+        if (opt.isChecked()){
+
+            double facto = 1;
+
+            for (int i = 1; i <= num1; i++) {
+                facto = facto * i;
+            }
+
+            respuesta = facto;
+        }
+
+        // PORCENTAJE
+        opt = findViewById(R.id.optPorcentaje);
+        if (opt.isChecked()){
+
+            // Porcentaje de numero  20% de 200 -> 20*200 / 100 = 40
+            respuesta = (num1 * num2)/ 100;
+        }
+
+        // Exponenciacion
+        opt = findViewById(R.id.optExponenciacion);
+        if (opt.isChecked()){
+            respuesta = Math.pow(num1,num2);
+
+        }
+
+        // RAIZ
+        opt = findViewById(R.id.optExponenciacion);
+        if (opt.isChecked()){
+            num2 = 0;
+            respuesta = Math.sqrt(num1);
+
+        }
+
 
 
 

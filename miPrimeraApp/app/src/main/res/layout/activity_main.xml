@@ -56,8 +56,8 @@
 
     <TextView
         android:id="@+id/lblRespuesta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="122dp"
+        android:layout_height="73dp"
         android:text="Respuesta: ?"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,16 +73,16 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/btnCalcular"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.939"
+        app:layout_constraintHorizontal_bias="0.806"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNum2"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.276">
 
         <RadioButton
-            android:checked="true"
             android:id="@+id/optSuma"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="SUMA" />
 
 
@@ -111,6 +111,38 @@
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="217dp" />
 
+        <RadioButton
+            android:id="@+id/optFactorial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FACTORIAL"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="217dp" />
+
+        <RadioButton
+            android:id="@+id/optPorcentaje"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PORCENTAJE"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="217dp" />
+
+        <RadioButton
+            android:id="@+id/optExponenciacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EXPONENCIACION"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="217dp" />
+
+        <RadioButton
+            android:id="@+id/optRaiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RAIZ"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="217dp" />
+
 
     </RadioGroup>
 
@@ -121,7 +153,7 @@
         android:text="Calcular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.626"
-        tools:layout_editor_absoluteX="28dp" />
+        app:layout_constraintVertical_bias="0.822"
+        tools:layout_editor_absoluteX="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
