@@ -56,95 +56,25 @@
 
     <TextView
         android:id="@+id/lblRespuesta"
-        android:layout_width="122dp"
-        android:layout_height="73dp"
+        android:layout_width="117dp"
+        android:layout_height="55dp"
         android:text="Respuesta: ?"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.084"
+        app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.278" />
+        app:layout_constraintVertical_bias="0.263" />
 
-    <RadioGroup
-        android:id="@+id/optOpciones"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:id="@+id/cboOpciones"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:entries="@array/opciones"
         app:layout_constraintBottom_toTopOf="@+id/btnCalcular"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.806"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNum2"
-        app:layout_constraintVertical_bias="0.276">
-
-        <RadioButton
-            android:id="@+id/optSuma"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="SUMA" />
-
-
-        <RadioButton
-            android:id="@+id/opResta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="RESTA"
-            tools:layout_editor_absoluteX="3dp"
-            tools:layout_editor_absoluteY="66dp" />
-
-
-        <RadioButton
-            android:id="@+id/opMultiplicar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MULTIPLICACION"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="150dp" />
-
-        <RadioButton
-            android:id="@+id/optDividir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DIVISION"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="217dp" />
-
-        <RadioButton
-            android:id="@+id/optFactorial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="FACTORIAL"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="217dp" />
-
-        <RadioButton
-            android:id="@+id/optPorcentaje"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PORCENTAJE"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="217dp" />
-
-        <RadioButton
-            android:id="@+id/optExponenciacion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="EXPONENCIACION"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="217dp" />
-
-        <RadioButton
-            android:id="@+id/optRaiz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="RAIZ"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="217dp" />
-
-
-    </RadioGroup>
+        app:layout_constraintVertical_bias="0.171"
+        tools:layout_editor_absoluteX="16dp" />
 
     <Button
         android:id="@+id/btnCalcular"
@@ -153,7 +83,7 @@
         android:text="Calcular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.822"
+        app:layout_constraintVertical_bias="0.9"
         tools:layout_editor_absoluteX="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

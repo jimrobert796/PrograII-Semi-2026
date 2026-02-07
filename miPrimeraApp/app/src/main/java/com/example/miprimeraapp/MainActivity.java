@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tempVal; // tempval es un TextViews (campo de texto)
     Button btn; // btn es un Button
 
-    RadioGroup radioGroup; // Usando RadioGroup
+    Spinner spn;
 
 
 
@@ -57,60 +58,22 @@ public class MainActivity extends AppCompatActivity {
 
         double respuesta = 0;
 
-        radioGroup = findViewById(R.id.optOpciones);
 
-        // SUMA
-        if (radioGroup.getCheckedRadioButtonId() == R.id.optSuma){
-            respuesta = num1 + num2;
+        spn = findViewById(R.id.cboOpciones);
+        switch (spn.getSelectedItemPosition()){
+            case 0: // Posicion 0 -> SUMA
+                respuesta = num1 + num2;
+                break;
+            case 1:// Posicion 1 -> RESTA
+                respuesta = num1 - num2;
+                break;
+            case 2:// Posicion 2 -> MULTI
+                respuesta = num1 * num2;
+                break;
+            case  3:// Posicion 3 -> DIVISION
+                respuesta = num1 / num2;
+                break;
         }
-
-        // RESTA
-        if (radioGroup.getCheckedRadioButtonId() == R.id.opResta){
-            respuesta = num1 - num2;
-        }
-
-        // MULTI
-        if (radioGroup.getCheckedRadioButtonId() == R.id.opMultiplicar){
-            respuesta = num1 * num2;
-        }
-
-        // DIVISION
-        if (radioGroup.getCheckedRadioButtonId() == R.id.optDividir){
-            respuesta = num1 / num2;
-        }
-
-        // FACTORIAL
-        if (radioGroup.getCheckedRadioButtonId() == R.id.optFactorial){
-
-            double facto = 1;
-
-            for (int i = 1; i <= num1; i++) {
-                facto = facto * i;
-            }
-
-            respuesta = facto;
-        }
-
-        // PORCENTAJE
-        if (radioGroup.getCheckedRadioButtonId() == R.id.optPorcentaje){
-
-            // Porcentaje de numero  20% de 200 -> 20*200 / 100 = 40
-            respuesta = (num1 * num2)/ 100;
-        }
-
-        // Exponenciacion
-        if (radioGroup.getCheckedRadioButtonId() == R.id.optExponenciacion){
-            respuesta = Math.pow(num1,num2);
-
-        }
-
-        // RAIZ
-        if (radioGroup.getCheckedRadioButtonId() == R.id.optRaiz){
-            num2 = 0;
-            respuesta = Math.sqrt(num1);
-
-        }
-
 
 
 
