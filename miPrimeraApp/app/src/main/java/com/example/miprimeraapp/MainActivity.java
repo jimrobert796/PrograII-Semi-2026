@@ -73,6 +73,23 @@ public class MainActivity extends AppCompatActivity {
             case  3:// Posicion 3 -> DIVISION
                 respuesta = num1 / num2;
                 break;
+            case 4:
+                double facto = 1;
+                for (int i = 1; i <= num1; i++) {
+                    facto = facto * i;
+                }
+                respuesta = facto;
+                break;
+            case 5:
+                // Porcentaje de numero  20% de 200 -> 20*200 / 100 = 40
+                respuesta = (num1 * num2)/ 100;
+                break;
+            case 6:
+                respuesta = Math.pow(num1,num2);
+                break;
+            case 7:
+                respuesta = Math.sqrt(num1);
+                break;
         }
 
 
