@@ -3,6 +3,7 @@ package com.example.miprimeraapp;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -27,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     TextView tempVal; // tempval es un TextViews (campo de texto)
     Button btn; // btn es un Button
 
-    RadioButton opt;
+    RadioGroup radioGroup; // Usando RadioGroup
+
 
 
 
@@ -55,33 +57,30 @@ public class MainActivity extends AppCompatActivity {
 
         double respuesta = 0;
 
+        radioGroup = findViewById(R.id.optOpciones);
+
         // SUMA
-        opt = findViewById(R.id.optSuma);
-        if (opt.isChecked()){
+        if (radioGroup.getCheckedRadioButtonId() == R.id.optSuma){
             respuesta = num1 + num2;
         }
 
         // RESTA
-        opt = findViewById(R.id.opResta);
-        if (opt.isChecked()){
+        if (radioGroup.getCheckedRadioButtonId() == R.id.opResta){
             respuesta = num1 - num2;
         }
 
         // MULTI
-        opt = findViewById(R.id.opMultiplicar);
-        if (opt.isChecked()){
+        if (radioGroup.getCheckedRadioButtonId() == R.id.opMultiplicar){
             respuesta = num1 * num2;
         }
 
         // DIVISION
-        opt = findViewById(R.id.optDividir);
-        if (opt.isChecked()){
+        if (radioGroup.getCheckedRadioButtonId() == R.id.optDividir){
             respuesta = num1 / num2;
         }
 
         // FACTORIAL
-        opt = findViewById(R.id.optFactorial);
-        if (opt.isChecked()){
+        if (radioGroup.getCheckedRadioButtonId() == R.id.optFactorial){
 
             double facto = 1;
 
@@ -93,23 +92,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // PORCENTAJE
-        opt = findViewById(R.id.optPorcentaje);
-        if (opt.isChecked()){
+        if (radioGroup.getCheckedRadioButtonId() == R.id.optPorcentaje){
 
             // Porcentaje de numero  20% de 200 -> 20*200 / 100 = 40
             respuesta = (num1 * num2)/ 100;
         }
 
         // Exponenciacion
-        opt = findViewById(R.id.optExponenciacion);
-        if (opt.isChecked()){
+        if (radioGroup.getCheckedRadioButtonId() == R.id.optExponenciacion){
             respuesta = Math.pow(num1,num2);
 
         }
 
         // RAIZ
-        opt = findViewById(R.id.optExponenciacion);
-        if (opt.isChecked()){
+        if (radioGroup.getCheckedRadioButtonId() == R.id.optRaiz){
             num2 = 0;
             respuesta = Math.sqrt(num1);
 
