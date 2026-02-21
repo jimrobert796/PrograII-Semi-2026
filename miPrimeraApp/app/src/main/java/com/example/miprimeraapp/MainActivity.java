@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        sensorLuz();
+        sensorAcelerometro();
     }
     private void iniciar(){
         sensorManager.registerListener(sensorEventListener, sensor, 2000*1000);
@@ -51,12 +51,12 @@ public class MainActivity extends AppCompatActivity {
     private void detener(){
         sensorManager.unregisterListener(sensorEventListener);
     }
-    private void sensorLuz(){
-        tempVal = findViewById(R.id.lblSensorLuz);
+    private void sensorAcelerometro(){
+        tempVal = findViewById(R.id.lblSensorAcelerometro);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if(sensor == null){
-            tempVal.setText("No dispones del sensor de luz");
+            tempVal.setText("No dispones del sensor acelerometro");
             finish();
         }
         // Averiduar que no nos funciona en el event listener
@@ -70,19 +70,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSensorChanged(SensorEvent event) {
 
-                double valor = event.values[0];
-                tempVal.setText("Luz: "+ valor);
-                int color = Color.BLACK;
-                if(valor>=0 && valor<=50){
-                    color = Color.GRAY;
-                }
-                if(valor>=51 && valor<=100){
-                    color = Color.YELLOW;
-                }
-                if (valor>=101 && valor<1000){
-                    color = Color.BLUE;
-                }
-                getWindow().getDecorView().setBackgroundColor(color);
+                double x = event.values[0];
+                double y = event.values[1];
+                double z = event.values[2];
+                tempVal.setText("Desplazamiento: X: "+ x +"\n; Y: "+y +"\n; Z: "+z);
+
+
             }
         };
     }
