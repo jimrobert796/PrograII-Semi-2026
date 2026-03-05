@@ -21,8 +21,9 @@ public class MainActivity extends AppCompatActivity {
     TextView tempVal;
     Button btn;
     Spinner spn;
-    Double valores[] = new Double[] {1.0, 0.85, 7.67, 26.42, 36.80, 495.77};
-    Double longitudes[] = new Double[] {1.0, 1000.0, 100.0, 39.3701, 3.280841666667, 1.1963081929167, 1.09361};
+
+    // Este seria la conversion de area
+    Double longitudes[] = new Double[] {1.0, 10.7639, 1.43115, 1.19599, 0.002288, 0.000143, 1e-4}; //area
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,38 +34,16 @@ public class MainActivity extends AppCompatActivity {
         tbh = findViewById(R.id.tbhConversores);
         tbh.setup();
 
-        tbh.addTab(tbh.newTabSpec("Monedas").setContent(R.id.tabMonedas).setIndicator("", getResources().getDrawable(R.drawable.monedas)));
-        tbh.addTab(tbh.newTabSpec("Longitud").setContent(R.id.tabLongitud).setIndicator("", getResources().getDrawable(R.drawable.longitud)));
-        tbh.addTab(tbh.newTabSpec("Volumen").setContent(R.id.tabVolumen).setIndicator("VOLUMEN", null));
-        tbh.addTab(tbh.newTabSpec("Masa").setContent(R.id.tabMasa).setIndicator("MASA", null));
+        tbh.addTab(tbh.newTabSpec("Conversor").setContent(R.id.tabLongitud).setIndicator("Conversor", null));
+        tbh.addTab(tbh.newTabSpec("Calculo").setContent(R.id.tabCalculo).setIndicator("Calculo", null));
 
-        btn = findViewById(R.id.btnMondedaConvertir);
-        btn.setOnClickListener(e-> convertirMonedas());
 
         btn = findViewById(R.id.btnLongitudConvertir);
         btn.setOnClickListener(v->convertirLongitud());
 
-    }
+        btn = findViewById(R.id.btnCalculo);
+        btn.setOnClickListener(v->calcularTarifa());
 
-    private void convertirMonedas(){
-        // Pociscion selecionada de 0 a 5  del primer spinner
-        spn = findViewById(R.id.spnMonedasDe);
-        int de = spn.getSelectedItemPosition();
-
-        // Pociscion selecionada de 0 a 5 del segundo spinner
-        spn = findViewById(R.id.spnMonedasA);
-        int a = spn.getSelectedItemPosition();
-
-        // Obtenemos el valor dado en el input/textbox
-        tempVal = findViewById(R.id.txtMonedasCantidad);
-        double cantidad = Double.parseDouble(tempVal.getText().toString());
-
-        // Variable que almacena el calculo de la funcion
-        double respuesta = conversor(de, a, cantidad);
-
-        // Mostrar el resultado en el label
-        tempVal = findViewById(R.id.lblMonedasRespuesta);
-        tempVal.setText("Respuesta: "+ respuesta);
     }
 
     private void convertirLongitud() {
@@ -82,13 +61,39 @@ public class MainActivity extends AppCompatActivity {
         tempVal.setText("Respuesta: " + respuesta);
     }
 
-    // Funcion que toma de argumentos a, de y cantidad a convertir devolviendo Double para su uso
-    double conversor(int de, int a, double cantidad){
-        return valores[a]/valores[de] * cantidad;
-    }
-
     double conversorLongitud(int de, int a, double cantidad){
         return longitudes[a]/longitudes[de] * cantidad;
     }
+
+    private void calcularTarifa() {
+
+        tempVal = findViewById(R.id.txtCalculoantidad);
+
+            // Convertir a número
+            double metros = Double.parseDouble(tempVal.getText().toString());
+
+
+            // Calcular tarifa según rangos
+            double valorPagar;
+
+            if (metros <= 18) {
+                // Cuota fija
+                valorPagar = 6.0;
+            } else if (metros <= 28) {
+                // $6 + $0.45 sobre el exceso de 18
+                valorPagar = 6.0 + ((metros - 18) * 0.45);
+            } else {
+                // metros >= 29
+                // $6 + $4.50 (10 metros de 19-28) + $0.65 sobre el exceso de 28
+                valorPagar = 6.0 + (10 * 0.45) + ((metros - 28) * 0.65);
+            }
+
+
+            tempVal = findViewById(R.id.lblCalculoRespuesta);
+            // Mostrar resultado
+            tempVal.setText("Respuesta: "+ valorPagar);
+        }
+
+
 
 }
