@@ -24,6 +24,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView tempval;
 
-    String accion = "Nuevo", idAmigo = "", urlFoto;
+    String accion = "nuevo", idAmigo = "", urlFoto;
 
     FloatingActionButton fab ;
     ImageView img;
@@ -63,8 +65,42 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(v-> guardarAmigo());
 
         fab = findViewById(R.id.fabListaAmigo);
+        fab.setOnClickListener(v->regresarListaAmigos());
 
 
+        mostrarDatosAmigos();
+
+    }
+
+    private void mostrarDatosAmigos(){
+        try{
+            Bundle parametros = getIntent().getExtras();
+            accion = parametros.getString("accion");
+            if(accion.equals("modificar")){
+                JSONObject datos = new JSONObject(parametros.getString("amigos"));
+                idAmigo = datos.getString("idAmigo");
+
+                tempval = findViewById(R.id.txtNombreAmigos);
+                tempval.setText(datos.getString("nombre"));
+
+                tempval = findViewById(R.id.txtDireccionAmigos);
+                tempval.setText(datos.getString("direccion"));
+
+                tempval = findViewById(R.id.txtTelefonoAmigos);
+                tempval.setText(datos.getString("telefono"));
+
+                tempval = findViewById(R.id.txtEmailAmigos);
+                tempval.setText(datos.getString("email"));
+
+                tempval = findViewById(R.id.txtDuiAmigos);
+                tempval.setText(datos.getString("dui"));
+
+                urlFoto = datos.getString("foto");
+                img.setImageURI(Uri.parse(urlFoto));
+            }
+        }catch (Exception e){
+            mostrarMensaje("Error al mostrar los datos: "+ e.getMessage());
+        }
     }
 
     private void tomarFoto(){
@@ -135,11 +171,15 @@ public class MainActivity extends AppCompatActivity {
         db.administrar_amigos(accion, datos);
         mostrarMensaje("Registo de amigo guardado con exito.");
 
-
+        regresarListaAmigos();
     }
 
     private void mostrarMensaje(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+    private void regresarListaAmigos(){
+        Intent intent = new Intent(this, lista_amigos.class);
+        startActivity(intent);
     }
 
 }
