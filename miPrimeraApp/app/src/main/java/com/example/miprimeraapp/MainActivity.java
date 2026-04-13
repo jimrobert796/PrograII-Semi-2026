@@ -39,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
     Button btn ;
 
-    TextView tempval;
+    TextView tempVal;
 
-    String accion = "nuevo", idAmigo = "", urlFoto;
+    String accion="nuevo", idAmigo="", urlFoto, id="", rev="";
 
     FloatingActionButton fab ;
     ImageView img;
@@ -78,22 +78,24 @@ public class MainActivity extends AppCompatActivity {
             accion = parametros.getString("accion");
             if(accion.equals("modificar")){
                 JSONObject datos = new JSONObject(parametros.getString("amigos"));
+                id = datos.getString("_id");
+                rev = datos.getString("_rev");
                 idAmigo = datos.getString("idAmigo");
 
-                tempval = findViewById(R.id.txtNombreAmigos);
-                tempval.setText(datos.getString("nombre"));
+                tempVal = findViewById(R.id.txtNombreAmigos);
+                tempVal.setText(datos.getString("nombre"));
 
-                tempval = findViewById(R.id.txtDireccionAmigos);
-                tempval.setText(datos.getString("direccion"));
+                tempVal = findViewById(R.id.txtDireccionAmigos);
+                tempVal.setText(datos.getString("direccion"));
 
-                tempval = findViewById(R.id.txtTelefonoAmigos);
-                tempval.setText(datos.getString("telefono"));
+                tempVal = findViewById(R.id.txtTelefonoAmigos);
+                tempVal.setText(datos.getString("telefono"));
 
-                tempval = findViewById(R.id.txtEmailAmigos);
-                tempval.setText(datos.getString("email"));
+                tempVal = findViewById(R.id.txtEmailAmigos);
+                tempVal.setText(datos.getString("email"));
 
-                tempval = findViewById(R.id.txtDuiAmigos);
-                tempval.setText(datos.getString("dui"));
+                tempVal = findViewById(R.id.txtDuiAmigos);
+                tempVal.setText(datos.getString("dui"));
 
                 urlFoto = datos.getString("foto");
                 img.setImageURI(Uri.parse(urlFoto));
@@ -150,28 +152,54 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void guardarAmigo(){
+        try {
+            tempVal = findViewById(R.id.txtNombreAmigos);
+            String nombre = tempVal.getText().toString();
 
-        tempval = findViewById(R.id.txtNombreAmigos);
-        String nombre = tempval.getText().toString();
+            tempVal = findViewById(R.id.txtDireccionAmigos);
+            String direccion = tempVal.getText().toString();
 
-        tempval = findViewById(R.id.txtDireccionAmigos);
-        String direccion = tempval.getText().toString();
+            tempVal = findViewById(R.id.txtTelefonoAmigos);
+            String tel = tempVal.getText().toString();
 
-        tempval = findViewById(R.id.txtTelefonoAmigos);
-        String telefono = tempval.getText().toString();
+            tempVal = findViewById(R.id.txtEmailAmigos);
+            String email = tempVal.getText().toString();
 
-        tempval = findViewById(R.id.txtEmailAmigos);
-        String email = tempval.getText().toString();
+            tempVal = findViewById(R.id.txtDuiAmigos);
+            String dui = tempVal.getText().toString();
 
-        tempval = findViewById(R.id.txtDuiAmigos);
-        String dui = tempval.getText().toString();
+            //guardar datos en la base de datos en local - SQLite
+            String[] datos = {idAmigo, nombre, direccion, tel, email, dui, urlFoto};
+            db.administrar_amigos(accion, datos);
+            //guardar datos en la base de datos CouchDB conWebService y API REST.
+            JSONObject datosAmigos = new JSONObject();
+            if(accion.equals("modificar")){
+                datosAmigos.put("_id", id);
+                datosAmigos.put("_rev", rev);
+            }
+            datosAmigos.put("idAmigo", idAmigo);
+            datosAmigos.put("nombre", nombre);
+            datosAmigos.put("direccion", direccion);
+            datosAmigos.put("telefono", tel);
+            datosAmigos.put("email", email);
+            datosAmigos.put("dui", dui);
+            datosAmigos.put("urlFoto", urlFoto);
 
-        String[] datos = {idAmigo, nombre,direccion, telefono, email, dui, urlFoto};
+            enviarDatosServidor objEnviarDatosServidor = new enviarDatosServidor(this);
+            String respuesta = objEnviarDatosServidor.execute(datosAmigos.toString(), "POST", utilidades.url_mantenimiento).get();
 
-        db.administrar_amigos(accion, datos);
-        mostrarMensaje("Registo de amigo guardado con exito.");
-
-        regresarListaAmigos();
+            JSONObject respuestaJSON = new JSONObject(respuesta);
+            if(respuestaJSON.getBoolean("ok")){
+                id = respuestaJSON.getString("id");
+                rev = respuestaJSON.getString("rev");
+            }else{
+                mostrarMensaje("Error: "+ respuestaJSON.getString("msg"));
+            }
+            mostrarMensaje("Registro de amigo guardado con exito.");
+            regresarListaAmigos();
+        } catch (Exception e) {
+            mostrarMensaje(e.getMessage());
+        }
     }
 
     private void mostrarMensaje(String msg){
