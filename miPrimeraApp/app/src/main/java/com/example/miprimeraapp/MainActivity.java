@@ -36,20 +36,12 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     DB db;
-
-    Button btn ;
-
+    Button btn;
     TextView tempVal;
-
-    String accion="nuevo", idAmigo="", urlFoto, id="", rev="";
-
-    FloatingActionButton fab ;
+    String accion="nuevo", idAmigo="", urlFoto="", id="", rev="";
+    Intent tomarFotoIntent;
+    FloatingActionButton fab;
     ImageView img;
-
-    Intent tomarFotoIntento;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,16 +54,13 @@ public class MainActivity extends AppCompatActivity {
         db = new DB(this);
 
         btn = findViewById(R.id.btnGuardarAmigo);
-        btn.setOnClickListener(v-> guardarAmigo());
+        btn.setOnClickListener(v->guardarAmigo());
 
         fab = findViewById(R.id.fabListaAmigo);
         fab.setOnClickListener(v->regresarListaAmigos());
 
-
         mostrarDatosAmigos();
-
     }
-
     private void mostrarDatosAmigos(){
         try{
             Bundle parametros = getIntent().getExtras();
@@ -101,25 +90,24 @@ public class MainActivity extends AppCompatActivity {
                 img.setImageURI(Uri.parse(urlFoto));
             }
         }catch (Exception e){
-            mostrarMensaje("Error al mostrar los datos: "+ e.getMessage());
+            mostrarMsg("Error al mostrar los datos: "+ e.getMessage());
         }
     }
-
     private void tomarFoto(){
-        tomarFotoIntento = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        tomarFotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         File fotoAmigo = null;
 
         try{
             fotoAmigo = crearImgAmigo();
             if(fotoAmigo!=null){
                 Uri uriFoto = FileProvider.getUriForFile(MainActivity.this, "com.example.miprimeraapp.fileprovider", fotoAmigo);
-                tomarFotoIntento.putExtra(MediaStore.EXTRA_OUTPUT, uriFoto);
-                startActivityForResult(tomarFotoIntento, 1);
+                tomarFotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriFoto);
+                startActivityForResult(tomarFotoIntent, 1);
             }else{
-                mostrarMensaje("Nose pudo crear la foto");
+                mostrarMsg("Nose pudo crear la foto");
             }
         } catch (Exception e) {
-            mostrarMensaje("Error al tomar la foto: "+ e.getMessage());
+            mostrarMsg("Error al tomar la foto: "+ e.getMessage());
         }
     }
 
@@ -131,14 +119,13 @@ public class MainActivity extends AppCompatActivity {
                 img.setImageURI(Uri.parse(urlFoto));
             }else{
 
-                mostrarMensaje("Error al mostrar foto");
+                mostrarMsg("Error al mostrar foto");
             }
 
         } catch (Exception e) {
-            mostrarMensaje("Error al abrir camara" + e.getMessage());
+            mostrarMsg("Error al abrir camara" + e.getMessage());
         }
     }
-
     private File crearImgAmigo() throws Exception{
         String fechaHoraMs = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()),
                 fileMane = "foto_"+ fechaHoraMs;
@@ -150,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
         urlFoto = image.getAbsolutePath();
         return image;
     }
-
     private void guardarAmigo(){
         try {
             tempVal = findViewById(R.id.txtNombreAmigos);
@@ -183,26 +169,29 @@ public class MainActivity extends AppCompatActivity {
             datosAmigos.put("telefono", tel);
             datosAmigos.put("email", email);
             datosAmigos.put("dui", dui);
-            datosAmigos.put("urlFoto", urlFoto);
+            datosAmigos.put("foto", urlFoto);
+
+
 
             enviarDatosServidor objEnviarDatosServidor = new enviarDatosServidor(this);
             String respuesta = objEnviarDatosServidor.execute(datosAmigos.toString(), "POST", utilidades.url_mantenimiento).get();
+
+            //tempVal.setText(respuesta);
 
             JSONObject respuestaJSON = new JSONObject(respuesta);
             if(respuestaJSON.getBoolean("ok")){
                 id = respuestaJSON.getString("id");
                 rev = respuestaJSON.getString("rev");
             }else{
-                mostrarMensaje("Error: "+ respuestaJSON.getString("msg"));
+                mostrarMsg("Error: "+ respuestaJSON.getString("msg"));
             }
-            mostrarMensaje("Registro de amigo guardado con exito.");
+            mostrarMsg("Registro de amigo guardado con exito.");
             regresarListaAmigos();
         } catch (Exception e) {
-            mostrarMensaje(e.getMessage());
+            mostrarMsg(e.getMessage());
         }
     }
-
-    private void mostrarMensaje(String msg){
+    private void mostrarMsg(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
     private void regresarListaAmigos(){

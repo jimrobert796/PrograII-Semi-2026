@@ -12,17 +12,18 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 public class obtenerDatosServidor extends AsyncTask <String, String, String> {
-
-    HttpsURLConnection httpURLConnection;
-
+    HttpURLConnection httpURLConnection;
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+    }
 
     @Override
     protected String doInBackground(String... strings) {
-
         StringBuilder respuesta = new StringBuilder();
         try{
             URL url = new URL(utilidades.url_consulta);
-            httpURLConnection = (HttpsURLConnection) url.openConnection();
+            httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("GET");
             httpURLConnection.setRequestProperty("Authorization", "Basic "+utilidades.credencialesCodificadas);
 
@@ -39,12 +40,6 @@ public class obtenerDatosServidor extends AsyncTask <String, String, String> {
         finally {
             httpURLConnection.disconnect();
         }
-
-        return "";
-    }
-
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
+        return respuesta.toString();
     }
 }

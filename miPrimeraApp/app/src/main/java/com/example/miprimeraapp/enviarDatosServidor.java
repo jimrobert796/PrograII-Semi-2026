@@ -48,7 +48,6 @@ public class enviarDatosServidor extends AsyncTask<String, String, String> {
             Writer writer = new BufferedWriter(new OutputStreamWriter(httpURLConnection.getOutputStream(),"UTF-8"));
             writer.write(jsonDatos);
             writer.close();
-
             //obtener la respuesta del servidor
             InputStream inputStream = httpURLConnection.getInputStream();
             if(inputStream==null) return null;
