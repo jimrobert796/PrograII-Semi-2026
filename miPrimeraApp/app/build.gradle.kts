@@ -38,6 +38,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation("com.google.firebase:firebase-database:22.0.1")
+    implementation("com.google.firebase:firebase-messaging:25.0.2")
+    implementation("com.google.firebase:firebase-storage:22.0.1")
     implementation(libs.constraintlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
