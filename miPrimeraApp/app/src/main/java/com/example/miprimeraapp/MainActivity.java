@@ -1,4 +1,6 @@
 package com.example.miprimeraapp;
+
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -113,8 +115,8 @@ public class MainActivity extends Activity {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
     private void abrirVentana(){
-        /*Intent intent = new Intent(this, lista_amigos.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(this, lista_amigos.class);
+        startActivity(intent);
     }
     private void guardarAmigo() {
         try {
