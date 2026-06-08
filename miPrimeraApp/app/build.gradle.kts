@@ -17,6 +17,17 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    packaging {
+        resources {
+            excludes += setOf(
+                "META-INF/DEPENDENCIES",
+                "META-INF/LICENSE",
+                "META-INF/LICENSE.txt",
+                "META-INF/NOTICE",
+                "META-INF/NOTICE.txt"
+            )
+        }
+    }
 
     buildTypes {
         release {
@@ -53,6 +64,8 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-database"))
     implementation(platform("com.google.firebase:firebase-messaging"))
     implementation(platform("com.google.firebase:firebase-storage"))
-    implementation(platform("com.firebaseui:firebase-ui-storage:9.0.0"))
+    implementation("com.firebaseui:firebase-ui-storage:9.0.0")
+    implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
+    implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
 
 }
